@@ -27,6 +27,7 @@ async def procres_help_command(message: Message):
 async def send_echo(message: Message):
     try:
         await message.send_copy(chat_id=message.chat.id)
+        print(message.model_dump_json(indent=4, exclude_none=True))
     except TypeError:
         await message.reply(
             text='Данный тип апдейтов не поддерживается '
