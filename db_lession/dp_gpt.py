@@ -13,6 +13,7 @@ def get_connection():
     global __connection
     if __connection is None:
         __connection = sqlite3.connect('anketa.db')
+    return __connection
 
 
 def init_db(force: bool = False):
@@ -50,10 +51,10 @@ def init_db(force: bool = False):
 def add_user(user_id: int, is_bot: bool, first_name:str, last_name:str, username:str, type:str):
     conn = get_connection()
     c = conn.cursor()
-    c.execute('INSERT INTO find_number_bot_user_data (user_id, is_bot, first_name, last_name, username) VALUES (?, ?, ?, ?, ?)', (user_id, is_bot, first_name, last_name, username))
+    c.execute('INSERT INTO find_number_bot_user_data (user_id, is_bot, first_name, last_name, username, type) VALUES (?, ?, ?, ?, ?, ?)', (user_id, is_bot, first_name, last_name, username, type))
     conn.commit()
 
 if __name__ == '__main__':
     init_db()
 
-    add_user(user_id=777, is_bot=False, username='kass', first_name='Kassym', last_name='Sauyt', type=False)
+    add_user(user_id=7778, is_bot=False, username='kass', first_name='Kassym', last_name='Sauyt', type=False)
