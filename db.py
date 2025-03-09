@@ -1,9 +1,4 @@
 import sqlite3
-import os
-
-
-# Определяем путь к базе данных внутри db_lession иначе anketa.db создается в корне
-DB_PATH = os.path.join(os.path.dirname(__file__), "anketa.db")
 
 
 __connection = None
@@ -20,28 +15,23 @@ def init_db(force: bool = False):
         Важно: миграция на такие табличы вы должны производить самостоятельно!
         :param force: явно пересоздать все таблицы
     """
-    try:
-        conn = sqlite3.connect(DB_PATH)  # Используем полный путь
-        print("Подключение успешно:", DB_PATH)  # Отладочный вывод
+    conn = get_connection()
 
-        c = conn.cursor()
-        c.execute('''
-            CREATE TABLE IF NOT EXISTS users (
-                user_id INTEGER PRIMARY KEY,
-                is_bot BOOLEAN NOT NULL,
-                first_name TEXT,
-                last_name TEXT,
-                username TEXT,
-                type TEXT NOT NULL
-            )
-        ''')
-
-        conn.commit()
-
-        print("База данных и таблица созданы!")
-
-    except sqlite3.Error as e:
-        print("Ошибка при подключении к базе данных:", e)
+    c = conn.cursor()
+    
+    if force:
+        c.execute('DROP TABLE IF EXISTS find_number_bot_user_data')
+    
+    c.execute('''
+        CREATE TABLE IF NOT EXISTS find_number_bot_user_data (
+            user_id INTEGER PRIMARY KEY,
+            is_bot BOOLEAN NOT NULL,
+            first_name TEXT,
+            last_name TEXT,
+            username TEXT,
+            type TEXT NOT NULL
+        )
+    ''')
 
     # Сохранить изменения
     conn.commit()
