@@ -56,4 +56,4 @@ def add_user(user_id: int, is_bot: bool, first_name:str, last_name:str, username
 if __name__ == '__main__':
     init_db()
 
-    add_user(user_id=777, is_bot=False, username='kass')
+    add_user(user_id=777, is_bot=False, username='kass', first_name='Kassym', last_name='Sauyt', type=False)
