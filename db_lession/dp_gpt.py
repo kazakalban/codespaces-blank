@@ -9,6 +9,7 @@ DB_PATH = os.path.join(os.path.dirname(__file__), "anketa.db")
 __connection = None
 
 
+# Проверяет соединение 
 def get_connection():
     global __connection
     if __connection is None:
@@ -48,6 +49,7 @@ def init_db(force: bool = False):
     conn.commit()
 
 
+# Добавлет в базу данные 
 def add_user(user_id: int, is_bot: bool, first_name:str, last_name:str, username:str, type:str):
     conn = get_connection()
     c = conn.cursor()
