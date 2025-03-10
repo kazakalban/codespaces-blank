@@ -2,3 +2,4 @@ private_for_API.py
 __pycache__/
 find_number_game_user_bd.py
 anketa.db
+venv/
