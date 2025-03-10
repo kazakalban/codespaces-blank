@@ -12,7 +12,7 @@ __connection = None
 def get_connection():
     global __connection
     if __connection is None:
-        __connection = sqlite3.connect('anketa.db')
+        __connection = sqlite3.connect(DB_PATH)
     return __connection
 
 
@@ -22,12 +22,12 @@ def init_db(force: bool = False):
         :param force: явно пересоздать все таблицы
     """
     try:
-        conn = sqlite3.connect(DB_PATH)  # Используем полный путь
+        conn = get_connection()  # Используем полный путь
         print("Подключение успешно:", DB_PATH)  # Отладочный вывод
 
         c = conn.cursor()
         c.execute('''
-            CREATE TABLE IF NOT EXISTS users (
+            CREATE TABLE IF NOT EXISTS find_number_bot_user_data (
                 user_id INTEGER PRIMARY KEY,
                 is_bot BOOLEAN NOT NULL,
                 first_name TEXT,
@@ -39,7 +39,7 @@ def init_db(force: bool = False):
 
         conn.commit()
 
-        print("База данных и таблица созданы!")
+        print("База данных и Таблицы созданы если нет и записыны данные!")
 
     except sqlite3.Error as e:
         print("Ошибка при подключении к базе данных:", e)
@@ -57,4 +57,4 @@ def add_user(user_id: int, is_bot: bool, first_name:str, last_name:str, username
 if __name__ == '__main__':
     init_db()
 
-    add_user(user_id=7778, is_bot=False, username='kass', first_name='Kassym', last_name='Sauyt', type=False)
+    add_user(user_id=77788, is_bot=False, username='kass', first_name='Kassym', last_name='Sauyt', type=False)
